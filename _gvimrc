@@ -49,7 +49,7 @@ set renderoptions=type:directx,level:0.75,gamma:1.25,contrast:0.25,geom:1,renmod
 
 augroup colors
     au!
-autocmd ColorScheme * highlight LineNr guibg=bg
+" autocmd ColorScheme * highlight LineNr guibg=bg
 " autocmd ColorScheme * highlight EndOfBuffer guibg=bg guifg=bg
 " the above line is replaced by the use of fillchars
 augroup end

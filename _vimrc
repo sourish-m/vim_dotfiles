@@ -69,7 +69,9 @@ set pythonthreedll=python310.dll
 set sidescroll=1 "enables side scrolling
 set confirm
 set redrawtime=10000
-set cursorline "highlight current line
+" Hightlight the line number of current line
+set cursorline 
+set cursorlineopt=number
 
 "---------------------------------------------------------------------------------------------
 set fillchars=stl:\ ,stlnc:\ ,eob:\ ,lastline:~
@@ -138,8 +140,8 @@ cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'L
  nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
  vnoremap <Space> zf
  set foldmethod=syntax "set folding per syntax
- set foldnestmax=1
- set foldcolumn=0
+ set foldnestmax=2
+ set foldcolumn=2
  " -------------this function sets fold text-----------------------
  function! MyFoldText()
      let nucolwidth = &fdc + &number * &numberwidth
