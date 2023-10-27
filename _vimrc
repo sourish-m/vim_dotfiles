@@ -1,17 +1,10 @@
 "Author: Sourish Mandal
-"-------------------My VIMRC File---------------------------------------
-"==Sources Included==
-" source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/defaults.vim
 source $VIMRUNTIME/mswin.vim
 
-"-----------------------------------------------------------------------
- " augroup vimrcEx
- "     au!
- "     " For all text files set 'textwidth' to 78 characters.
- "     autocmd FileType text setlocal textwidth=78
- " augroup END
-"--------------------Set Options--------------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              Options & Remaps                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "stop creation of swap files
 set noswapfile
@@ -50,7 +43,7 @@ endif
 set mouse=a
 set belloff=all     "this disables vim's built in bell
 set number   "this shows line numbers
-set splitbelow "these lines ensure that new splits appear to below and right instead of Vim's default order 
+set splitbelow "splits appear only below and right
 set splitright
 set browsedir=current
 set guioptions+=!
@@ -73,18 +66,21 @@ set redrawtime=10000
 set cursorline 
 set cursorlineopt=number
 
-"---------------------------------------------------------------------------------------------
-set fillchars=stl:\ ,stlnc:\ ,eob:\ ,lastline:~
+set fillchars=vert:\│,stl:\ ,stlnc:\ ,eob:\ ,lastline:~
 
 inoremap jk <Esc>
 inoremap kj <Esc> 
 "this remaps <Esc> to jk or kj  in insert mode  
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               Code Execution                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 augroup prog
     au!
 autocmd Filetype c setlocal makeprg=gcc\ -g\ -pipe\ %\ -o\ $*<
 autocmd Filetype cpp setlocal makeprg=g++\ -g\ -pipe\ %\ -o\ $*<
-" Execute with <cf5>
+" Execute with <f5>
 autocmd Filetype c,cpp nnoremap <silent><buffer> <F5> :term %<<cr>
 augroup END
 " Compile with F7, and navigate errors with :cn, :cp...
@@ -118,8 +114,10 @@ let $HOMEPATH=$VIM
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
 
-"----------------------------------Copied from Romainl's gist---------------------------------
-""Smarter grep using rg
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                     Better Grep (From Romainl's Gist)                      "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 if executable('rg')
   set grepprg=rg\ --smart-case\ --vimgrep
   set grepformat=%f:%l:%c:%m
@@ -134,14 +132,17 @@ command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
 cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
 cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
 
-"-----------------------Folding-----------------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  Folding                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "In normal mode, press Space to toggle the current fold open/closed.
 "However, if the cursor is not in a fold, move to the right (the default behavior)
  nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
  vnoremap <Space> zf
- set foldmethod=syntax "set folding per syntax
+ set foldmethod=indent "set folding per syntax
  set foldnestmax=2
- set foldcolumn=2
+ set foldcolumn=1
  " -------------this function sets fold text-----------------------
  function! MyFoldText()
      let nucolwidth = &fdc + &number * &numberwidth
@@ -159,12 +160,17 @@ augroup quickfix
 	autocmd QuickFixCmdPost lgetexpr lwindow
 augroup END
 
-"----------mapping from reddit -----------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                           Moves lines up or down                           "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 vnoremap <silent> <C-j> :m '>+1<CR>gv
 vnoremap <silent> <C-k> :m '<-2<CR>gv
 "move lines up or down using Control-j/k
 
-" ------------------Window mappings-------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                          Movement between Windows                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use arrow keys to move between windows in the terminal
 nnoremap <silent><F4> :wincmd c<CR>
 if !has('gui')
@@ -174,13 +180,19 @@ nnoremap <DOWN> <C-w>j
 nnoremap <UP> <C-w>k
 endif
 
-"------------Integrate VIM with Windows File Explorer--------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                     Windows File Explorer Integration                      "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 if has('gui')
 nnoremap <leader>bo :browse e!<CR>
 nnoremap <leader>bs :browse confirm saveas!<CR>
 endif
 
-"---------------------VIM Plug------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                VIM Plugins                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 call plug#begin('$VIM/vimfiles/plugged')
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
@@ -189,22 +201,28 @@ Plug 'mbbill/undotree'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 "-> needed for ultisnips
+
 Plug 'bfrg/vim-cpp-modern',{'for': ['c','cpp']}
 "-> better c and c++ syntax highlight
 Plug 'romainl/vim-cool'
 "-> auto-removes search highlight
-" Plug 'mhinz/vim-startify'
-"-> Cool Start Screen
+
 Plug 'preservim/tagbar'
 "-> <F9> for tagbar
 Plug 'tweekmonster/startuptime.vim'
 "-> :StartupTime
-Plug 'sainnhe/everforest'
 Plug 'psliwka/vim-smoothie'
+Plug 'sainnhe/everforest'
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeFocus' }
 "--> Smooth scrolling using CTRL-D and CTRL-U
+
 call plug#end()
 "-----------------------------------------------------------------------
+let g:everforest_background='hard'
+let g:everforest_better_performance=1 "improves loading time
 colorscheme everforest
+"---------------------------NERDTREE------------------------------------
+nnoremap <silent> <leader>e :NERDTreeFocus<CR>
 "---------------------------Lightline Plugin----------------------------
 
 "for lightline plugin display
@@ -230,7 +248,10 @@ endfunction
 command! -nargs=1 -complete=custom,s:lightline_colorschemes LightlineColorscheme
             \ call s:set_lightline_colorscheme(<q-args>)
 
-"----------------------Ale----------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    ALE                                     "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:airline#extensions#ale#enabled=0
 let g:ale_detail_to_floating_preview=1 "ALEDetail in preview window"
 let g:ale_completion_enabled=1  "Snipmate doesn't work if this is enabled"
@@ -252,40 +273,32 @@ if has('gui_running')
     highlight clear ALEWarningSign
 endif
 
-"---------------Termdebug-----------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 TermDebug                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:termdebug_popup = 0
 let g:termdebug_wide = 163
 
-" ----------------Undotree----------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  UndoTree                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:undotree_ShortIndicators=1
 let g:undotree_SetFocusWhenToggle=1
 let g:undotree_DiffAutoOpen=0
 nnoremap <F1> :UndotreeToggle<cr>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               Vim-CPP-Modern                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"------------------Vim-cpp-modern---------------------------
-let g:cpp_attributes_highlight = 1 "Enable highlighting of C++11 attributes
-let g:cpp_member_highlight = 1 "Highlight struct/class member variables (affects both C and C++ files)
-"-----------------------------------------------------------
-"-----------------------Startify----------------------------
- let g:startify_bookmarks = [  '$VIM\_vimrc', '$VIM\_gvimrc' ]
-let g:startify_change_to_dir = 0
-let g:startify_fortune_use_unicode = 1
-" let g:startify_session_persistence = 1
-" let g:startify_session_sort = 1
-let g:startify_skiplist= ['vimfiles\\plugged', 'vim90', '.git', 'site-packages']
-let g:startify_lists = [
-          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-          \ { 'type': 'sessions',  'header': ['   Sessions']       },
-          \ { 'type': 'files',     'header': ['   Recently Used']            },
-          \ { 'type': 'dir',       'header': ['   Recently Used at- '. getcwd()] },
-          \ { 'type': 'commands',  'header': ['   Commands']       },
-          \ ]
-" let g:startify_custom_header =['   ╔═══════════════╗',
-"                               \'         VIM 9      ',
-"                               \'   ╚═══════════════╝',]
+let g:cpp_attributes_highlight = 1 "highlight C++11 attributes
+let g:cpp_member_highlight = 1 "Highlight struct/class member variables (both C and C++)
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   Tagbar                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"-----------------------Tagbar------------------------------
 let g:tagbar_autoclose=1
 nnoremap <silent> <F9> :TagbarToggle<CR>
