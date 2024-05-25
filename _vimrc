@@ -204,6 +204,8 @@ Plug 'honza/vim-snippets'
 
 Plug 'bfrg/vim-cpp-modern',{'for': ['c','cpp']}
 "-> better c and c++ syntax highlight
+Plug 'mechatroner/rainbow_csv'
+"-> rainbow csv highlight for VIM
 Plug 'romainl/vim-cool'
 "-> auto-removes search highlight
 
