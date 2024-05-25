@@ -34,6 +34,7 @@ set shortmess=xcToOsI "custom shortmessage format, see help
 "the above line shows search numbers
 set belloff+=ctrlg " If Vim beeps during completion
 packadd! matchit "this is cut-pasted from vimrc_example
+packadd! comment "new inbuilt comment plugin in Vim 9.1
 let mapleader=","
 " remaps leader to ,
 set t_Co=256    "this enables 256 colours in the terminal
@@ -197,7 +198,6 @@ endif
 
 call plug#begin('$VIM/vimfiles/plugged')
 Plug 'w0rp/ale'
-Plug 'tpope/vim-commentary'
 Plug 'itchyny/lightline.vim'
 Plug 'mbbill/undotree'
 Plug 'SirVer/ultisnips'
