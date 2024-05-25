@@ -192,6 +192,8 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                VIM Plugins                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" To install VIM Plug, download from this url with curl and put it in autoload:
+" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 call plug#begin('$VIM/vimfiles/plugged')
 Plug 'w0rp/ale'
