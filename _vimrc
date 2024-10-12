@@ -218,7 +218,7 @@ Plug 'preservim/tagbar'
 Plug 'tweekmonster/startuptime.vim'
 "-> :StartupTime
 Plug 'psliwka/vim-smoothie'
-Plug 'sainnhe/everforest'
+" Plug 'sainnhe/everforest'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeFocus' }
 "--> Smooth scrolling using CTRL-D and CTRL-U
 
@@ -232,7 +232,7 @@ set laststatus=2
 set noshowmode " for hiding --INSERT in last line
 
 "to change color of lightline
-let g:lightline = { 'colorscheme': 'everforest' }
+let g:lightline = { 'colorscheme': 'apprentice' }
 function! s:set_lightline_colorscheme(name) abort
     let g:lightline.colorscheme = a:name
     call lightline#init()
