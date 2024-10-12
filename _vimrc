@@ -72,6 +72,8 @@ set fillchars=vert:\│,stl:\ ,stlnc:\ ,eob:\ ,lastline:~
 inoremap jk <Esc>
 inoremap kj <Esc> 
 "this remaps <Esc> to jk or kj  in insert mode  
+"
+colo quiet
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Code Execution                               "
@@ -221,10 +223,6 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeFocus' }
 "--> Smooth scrolling using CTRL-D and CTRL-U
 
 call plug#end()
-"-----------------------------------------------------------------------
-let g:everforest_background='hard'
-let g:everforest_better_performance=1 "improves loading time
-colorscheme everforest
 "---------------------------NERDTREE------------------------------------
 nnoremap <silent> <leader>e :NERDTreeFocus<CR>
 "---------------------------Lightline Plugin----------------------------
