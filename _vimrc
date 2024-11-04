@@ -44,6 +44,7 @@ endif
 set mouse=a
 set belloff=all     "this disables vim's built in bell
 set number   "this shows line numbers
+set relativenumber "this shows relative line numbers
 set splitbelow "splits appear only below and right
 set splitright
 set browsedir=current
