@@ -203,29 +203,17 @@ call plug#begin('$VIM/vimfiles/plugged')
 Plug 'w0rp/ale'
 Plug 'itchyny/lightline.vim'
 Plug 'mbbill/undotree'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-"-> needed for ultisnips
-
 Plug 'bfrg/vim-cpp-modern',{'for': ['c','cpp']}
 "-> better c and c++ syntax highlight
-Plug 'mechatroner/rainbow_csv'
-"-> rainbow csv highlight for VIM
 Plug 'romainl/vim-cool'
 "-> auto-removes search highlight
 
 Plug 'preservim/tagbar'
 "-> <F9> for tagbar
-Plug 'tweekmonster/startuptime.vim'
-"-> :StartupTime
 Plug 'psliwka/vim-smoothie'
-" Plug 'sainnhe/everforest'
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeFocus' }
 "--> Smooth scrolling using CTRL-D and CTRL-U
 
 call plug#end()
-"---------------------------NERDTREE------------------------------------
-nnoremap <silent> <leader>e :NERDTreeFocus<CR>
 "---------------------------Lightline Plugin----------------------------
 
 "for lightline plugin display
