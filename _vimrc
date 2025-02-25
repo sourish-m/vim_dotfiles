@@ -30,7 +30,7 @@ set backspace=indent,eol,start
 set formatoptions=qrnltj/
 set complete+=kspell
 set completeopt+=menuone,noinsert,noselect
-set shortmess=xcToOsI "custom shortmessage format, see help
+set shortmess=xcToOsIF "custom shortmessage format, see help
 "the above line shows search numbers
 set belloff+=ctrlg " If Vim beeps during completion
 packadd! matchit "this is cut-pasted from vimrc_example
@@ -74,7 +74,7 @@ inoremap jk <Esc>
 inoremap kj <Esc> 
 "this remaps <Esc> to jk or kj  in insert mode  
 "
-colo quiet
+colo retrobox
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Code Execution                               "
