@@ -37,7 +37,6 @@ packadd! matchit "this is cut-pasted from vimrc_example
 packadd! comment "new inbuilt comment plugin in Vim 9.1
 let mapleader=","
 " remaps leader to ,
-set t_Co=256    "this enables 256 colours in the terminal
 if has("termguicolors")
  set termguicolors
 endif
@@ -65,14 +64,14 @@ set sidescroll=1 "enables side scrolling
 set confirm
 set redrawtime=10000
 " Hightlight the line number of current line
-set cursorline 
+set cursorline
 set cursorlineopt=number
 
 set fillchars=vert:\│,stl:\ ,stlnc:\ ,eob:\ ,lastline:~
 
 inoremap jk <Esc>
-inoremap kj <Esc> 
-"this remaps <Esc> to jk or kj  in insert mode  
+inoremap kj <Esc>
+"this remaps <Esc> to jk or kj  in insert mode
 "
 colo retrobox
 
@@ -107,7 +106,7 @@ nnoremap ` '
 noremap ^ 0
 noremap 0 ^
 " now 0 reaches beginning of line ignoring space
- 
+
 "TIP-JUST DELETE NETRW FROM VIM, IT IS BUGGY AS HELL AND HANGS VIM OFTEN
 let loaded_netrwPlugin = 1
 let g:markdown_folding = 1
@@ -184,6 +183,14 @@ nnoremap <DOWN> <C-w>j
 nnoremap <UP> <C-w>k
 endif
 
+if has ('terminal')
+    tnoremap <Esc> <C-\><C-n> "Exit terminal mode with ESC
+
+    " Set cursor style for different modes
+    let &t_SI .= "\<Esc>[4 q"
+    let &t_SR .= "\<Esc>[3 q" " Blinking underscore in Replace mode
+    let &t_EI .= "\<Esc>[4 q" " Solid block in Normal mode
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                     Windows File Explorer Integration                      "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -212,7 +219,6 @@ Plug 'preservim/tagbar'
 "-> <F9> for tagbar
 Plug 'psliwka/vim-smoothie'
 "--> Smooth scrolling using CTRL-D and CTRL-U
-
 call plug#end()
 "---------------------------Lightline Plugin----------------------------
 
@@ -257,7 +263,7 @@ let g:ale_use_global_executables=1
 let g:ale_fixers = {
 \   'python': ['ruff','black'],
 \}
-if has('gui_running') 
+if has('gui_running')
     let g:ale_sign_error = '❌'
     let g:ale_sign_warning ='💡'
     highlight clear ALEErrorSign
@@ -293,3 +299,20 @@ let g:cpp_member_highlight = 1 "Highlight struct/class member variables (both C 
 
 let g:tagbar_autoclose=1
 nnoremap <silent> <F9> :TagbarToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   Extra (GEMINI)                           "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Autocommand for auto removing trailing spaces on save
+augroup auto_space
+  autocmd!
+  autocmd BufWritePre * :%s/\s\+$//e
+augroup END
+
+" Autocommand for auto-reload vimrc
+augroup vimrc_reload
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END
+
