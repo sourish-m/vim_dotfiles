@@ -131,16 +131,7 @@ cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'L
  set foldmethod=indent "set folding per syntax
  set foldnestmax=2
  set foldcolumn=1
- " -------------this function sets fold text-----------------------
- function! MyFoldText()
-     let nucolwidth = &fdc + &number * &numberwidth
-     let windowwidth = winwidth(0) - nucolwidth - 7 " Change this number into flair character length
-     let foldedlinecount = v:foldend - v:foldstart
-     let line = strpart(0, windowwidth - 2 -len(foldedlinecount))
-     let fillcharcount = windowwidth - strdisplaywidth(line) - len(foldedlinecount)
-     return repeat(" ",fillcharcount-5) .' ('. foldedlinecount .' lines) '. '  '
- endfunction
- set foldtext=MyFoldText()
+ set foldtext=
 
 augroup quickfix
 	autocmd!
