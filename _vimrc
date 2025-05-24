@@ -43,14 +43,13 @@ endif
 set mouse=a
 set belloff=all     "this disables vim's built in bell
 set number   "this shows line numbers
-set relativenumber "this shows relative line numbers
+" set relativenumber "this shows relative line numbers
 set splitbelow "splits appear only below and right
 set splitright
 set browsedir=current
 set guioptions+=!
 set linebreak
 set conceallevel=2
-set grepprg=ag
 set backup
 set bdir=$VIM\\backup\\
 "sets backup directory
@@ -66,6 +65,7 @@ set redrawtime=10000
 " Hightlight the line number of current line
 set cursorline
 set cursorlineopt=number
+set smoothscroll
 
 set fillchars=vert:\│,stl:\ ,stlnc:\ ,eob:\ ,lastline:~
 
@@ -73,26 +73,11 @@ inoremap jk <Esc>
 inoremap kj <Esc>
 "this remaps <Esc> to jk or kj  in insert mode
 "
-colo retrobox
+colo sorbet
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Code Execution                               "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-augroup prog
-    au!
-autocmd Filetype c setlocal makeprg=gcc\ -g\ -pipe\ %\ -o\ $*<
-autocmd Filetype cpp setlocal makeprg=g++\ -g\ -pipe\ %\ -o\ $*<
-" Execute with <f5>
-autocmd Filetype c,cpp nnoremap <silent><buffer> <F5> :term %<<cr>
-augroup END
-" Compile with F7, and navigate errors with :cn, :cp...
-nnoremap <silent> <F7> :<c-u>w<cr>:make %<cr>
-" While % is a shortcut for the current filename with extension, %< strips the
-" extension.
-" <c-u> after semicolon is used to remove any ranges VIM may insert in command
-" mode
-
 nnoremap ; :
 nnoremap : ;
 "most useful mapping in VIM
@@ -208,43 +193,16 @@ endif
 
 call plug#begin('$VIM/vimfiles/plugged')
 Plug 'w0rp/ale'
-Plug 'itchyny/lightline.vim'
 Plug 'mbbill/undotree'
-Plug 'bfrg/vim-cpp-modern',{'for': ['c','cpp']}
-"-> better c and c++ syntax highlight
 Plug 'romainl/vim-cool'
 "-> auto-removes search highlight
-
+Plug 'ourigen/skyline.vim'
+" Lightweight statusline Alternative
 Plug 'preservim/tagbar'
 "-> <F9> for tagbar
-Plug 'psliwka/vim-smoothie'
-"--> Smooth scrolling using CTRL-D and CTRL-U
 call plug#end()
-"---------------------------Lightline Plugin----------------------------
-
-"for lightline plugin display
-set laststatus=2
+"-------------------------Statusline Config----------------------------
 set noshowmode " for hiding --INSERT in last line
-
-"to change color of lightline
-let g:lightline = { 'colorscheme': 'apprentice' }
-function! s:set_lightline_colorscheme(name) abort
-    let g:lightline.colorscheme = a:name
-    call lightline#init()
-    call lightline#colorscheme()
-    call lightline#update()
-endfunction
-
-function! s:lightline_colorschemes(...) abort
-    return join(map(
-                \ globpath(&rtp,"autoload/lightline/colorscheme/*.vim",1,1),
-                \ "fnamemodify(v:val,':t:r')"),
-                \ "\n")
-endfunction
-
-command! -nargs=1 -complete=custom,s:lightline_colorschemes LightlineColorscheme
-            \ call s:set_lightline_colorscheme(<q-args>)
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                    ALE                                     "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -285,13 +243,6 @@ let g:undotree_ShortIndicators=1
 let g:undotree_SetFocusWhenToggle=1
 let g:undotree_DiffAutoOpen=0
 nnoremap <F1> :UndotreeToggle<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               Vim-CPP-Modern                               "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:cpp_attributes_highlight = 1 "highlight C++11 attributes
-let g:cpp_member_highlight = 1 "Highlight struct/class member variables (both C and C++)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Tagbar                                   "
