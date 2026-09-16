@@ -69,6 +69,8 @@ set cursorlineopt=number
 set smoothscroll
 
 set fillchars=vert:\│,stl:\ ,stlnc:\ ,eob:\ ,lastline:~
+" set border of command completion popup
+set pumborder=custom:─;│;─;│;┌;┐;┘;└,shadow
 
 inoremap jk <Esc>
 inoremap kj <Esc>
