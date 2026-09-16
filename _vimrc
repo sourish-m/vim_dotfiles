@@ -29,7 +29,7 @@ set ttyfast
 set backspace=indent,eol,start
 set formatoptions=qrnltj/
 set complete+=kspell
-set completeopt+=menuone,noinsert,noselect
+set completeopt+=menuone,noinsert,noselect,fuzzy
 set shortmess=xcToOsIF "custom shortmessage format, see help
 "the above line shows search numbers
 set belloff+=ctrlg " If Vim beeps during completion
@@ -71,6 +71,8 @@ set smoothscroll
 set fillchars=vert:\│,stl:\ ,stlnc:\ ,eob:\ ,lastline:~
 " set border of command completion popup
 set pumborder=custom:─;│;─;│;┌;┐;┘;└,shadow
+" VIM autocomplete
+set autocomplete
 
 inoremap jk <Esc>
 inoremap kj <Esc>
