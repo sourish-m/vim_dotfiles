@@ -3,6 +3,9 @@
 Intellij Fonts/
 _lesshst
 backup/
+runtime/
 undofiles/
-vim91/
 vimfiles/
+*.txt
+*.bat
+*.dll
